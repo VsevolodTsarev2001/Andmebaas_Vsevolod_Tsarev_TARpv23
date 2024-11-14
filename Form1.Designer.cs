@@ -36,17 +36,28 @@
             this.Hind_txt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.toodeBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.andmebaasDataSet = new Andmebaas_Vsevolod_Tsarev_TARpv23.AndmebaasDataSet();
+            this.toodeBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.andmebaasDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.andmebaasDataSet = new Andmebaas_Vsevolod_Tsarev_TARpv23.AndmebaasDataSet();
+            this.toodeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.toodeTableAdapter = new Andmebaas_Vsevolod_Tsarev_TARpv23.AndmebaasDataSetTableAdapters.ToodeTableAdapter();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.Uuenda_btn = new System.Windows.Forms.Button();
+            this.toodeBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.otsipilt_btn = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.toodeBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
+            this.toodeBindingSource4 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.andmebaasDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.andmebaasDataSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.andmebaasDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource4)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -108,23 +119,29 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(26, 245);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(748, 179);
+            this.dataGridView1.Size = new System.Drawing.Size(531, 156);
             this.dataGridView1.TabIndex = 6;
+            this.dataGridView1.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_RowHeaderMouseClick);
             // 
-            // toodeBindingSource
+            // toodeBindingSource2
             // 
-            this.toodeBindingSource.DataMember = "Toode";
-            this.toodeBindingSource.DataSource = this.andmebaasDataSet;
+            this.toodeBindingSource2.DataMember = "Toode";
+            this.toodeBindingSource2.DataSource = this.andmebaasDataSetBindingSource;
+            // 
+            // andmebaasDataSetBindingSource
+            // 
+            this.andmebaasDataSetBindingSource.DataSource = this.andmebaasDataSet;
+            this.andmebaasDataSetBindingSource.Position = 0;
             // 
             // andmebaasDataSet
             // 
             this.andmebaasDataSet.DataSetName = "AndmebaasDataSet";
             this.andmebaasDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // andmebaasDataSetBindingSource
+            // toodeBindingSource
             // 
-            this.andmebaasDataSetBindingSource.DataSource = this.andmebaasDataSet;
-            this.andmebaasDataSetBindingSource.Position = 0;
+            this.toodeBindingSource.DataMember = "Toode";
+            this.toodeBindingSource.DataSource = this.andmebaasDataSet;
             // 
             // toodeTableAdapter
             // 
@@ -135,38 +152,75 @@
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.button1.Location = new System.Drawing.Point(26, 192);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(175, 47);
+            this.button1.Size = new System.Drawing.Size(145, 47);
             this.button1.TabIndex = 7;
             this.button1.Text = "Lisa andmed";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Lisa_btn_Click);
             // 
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.button2.Location = new System.Drawing.Point(207, 192);
+            this.button2.Location = new System.Drawing.Point(177, 192);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(182, 47);
+            this.button2.Size = new System.Drawing.Size(179, 47);
             this.button2.TabIndex = 8;
             this.button2.Text = "Kustuta andmed";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // Uuenda_btn
             // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.button3.Location = new System.Drawing.Point(395, 192);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(195, 47);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "Uuenda andmed";
-            this.button3.UseVisualStyleBackColor = true;
+            this.Uuenda_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Uuenda_btn.Location = new System.Drawing.Point(362, 192);
+            this.Uuenda_btn.Name = "Uuenda_btn";
+            this.Uuenda_btn.Size = new System.Drawing.Size(195, 47);
+            this.Uuenda_btn.TabIndex = 9;
+            this.Uuenda_btn.Text = "Uuenda andmed";
+            this.Uuenda_btn.UseVisualStyleBackColor = true;
+            this.Uuenda_btn.Click += new System.EventHandler(this.Uuenda_btn_Click);
+            // 
+            // toodeBindingSource1
+            // 
+            this.toodeBindingSource1.DataMember = "Toode";
+            this.toodeBindingSource1.DataSource = this.andmebaasDataSetBindingSource;
+            // 
+            // otsipilt_btn
+            // 
+            this.otsipilt_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.otsipilt_btn.Location = new System.Drawing.Point(563, 192);
+            this.otsipilt_btn.Name = "otsipilt_btn";
+            this.otsipilt_btn.Size = new System.Drawing.Size(148, 47);
+            this.otsipilt_btn.TabIndex = 10;
+            this.otsipilt_btn.Text = "Uuenda Pilt";
+            this.otsipilt_btn.UseVisualStyleBackColor = true;
+            this.otsipilt_btn.Click += new System.EventHandler(this.otsipilt_btn_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(585, 19);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(126, 111);
+            this.pictureBox1.TabIndex = 11;
+            this.pictureBox1.TabStop = false;
+            // 
+            // toodeBindingSource3
+            // 
+            this.toodeBindingSource3.DataMember = "Toode";
+            this.toodeBindingSource3.DataSource = this.andmebaasDataSetBindingSource;
+            // 
+            // toodeBindingSource4
+            // 
+            this.toodeBindingSource4.DataMember = "Toode";
+            this.toodeBindingSource4.DataSource = this.andmebaasDataSetBindingSource;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.otsipilt_btn);
+            this.Controls.Add(this.Uuenda_btn);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
@@ -179,9 +233,14 @@
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.andmebaasDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.andmebaasDataSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.andmebaasDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -202,7 +261,13 @@
         private AndmebaasDataSetTableAdapters.ToodeTableAdapter toodeTableAdapter;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button Uuenda_btn;
+        private System.Windows.Forms.BindingSource toodeBindingSource1;
+        private System.Windows.Forms.BindingSource toodeBindingSource2;
+        private System.Windows.Forms.Button otsipilt_btn;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.BindingSource toodeBindingSource3;
+        private System.Windows.Forms.BindingSource toodeBindingSource4;
     }
 }
 
