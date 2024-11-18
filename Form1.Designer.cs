@@ -38,11 +38,9 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.toodeBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.andmebaasDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.andmebaasDataSet = new Andmebaas_Vsevolod_Tsarev_TARpv23.AndmebaasDataSet();
             this.toodeBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.toodeTableAdapter = new Andmebaas_Vsevolod_Tsarev_TARpv23.AndmebaasDataSetTableAdapters.ToodeTableAdapter();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.kustuta_btn = new System.Windows.Forms.Button();
             this.Uuenda_btn = new System.Windows.Forms.Button();
             this.toodeBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.otsipilt_btn = new System.Windows.Forms.Button();
@@ -52,7 +50,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.andmebaasDataSetBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.andmebaasDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -128,24 +125,9 @@
             this.toodeBindingSource2.DataMember = "Toode";
             this.toodeBindingSource2.DataSource = this.andmebaasDataSetBindingSource;
             // 
-            // andmebaasDataSetBindingSource
-            // 
-            this.andmebaasDataSetBindingSource.DataSource = this.andmebaasDataSet;
-            this.andmebaasDataSetBindingSource.Position = 0;
-            // 
-            // andmebaasDataSet
-            // 
-            this.andmebaasDataSet.DataSetName = "AndmebaasDataSet";
-            this.andmebaasDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // toodeBindingSource
             // 
             this.toodeBindingSource.DataMember = "Toode";
-            this.toodeBindingSource.DataSource = this.andmebaasDataSet;
-            // 
-            // toodeTableAdapter
-            // 
-            this.toodeTableAdapter.ClearBeforeFill = true;
             // 
             // button1
             // 
@@ -158,15 +140,16 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Lisa_btn_Click);
             // 
-            // button2
+            // kustuta_btn
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.button2.Location = new System.Drawing.Point(177, 192);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(179, 47);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Kustuta andmed";
-            this.button2.UseVisualStyleBackColor = true;
+            this.kustuta_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.kustuta_btn.Location = new System.Drawing.Point(177, 192);
+            this.kustuta_btn.Name = "kustuta_btn";
+            this.kustuta_btn.Size = new System.Drawing.Size(179, 47);
+            this.kustuta_btn.TabIndex = 8;
+            this.kustuta_btn.Text = "Kustuta andmed";
+            this.kustuta_btn.UseVisualStyleBackColor = true;
+            this.kustuta_btn.Click += new System.EventHandler(this.kustuta_btn_Click);
             // 
             // Uuenda_btn
             // 
@@ -182,7 +165,6 @@
             // toodeBindingSource1
             // 
             this.toodeBindingSource1.DataMember = "Toode";
-            this.toodeBindingSource1.DataSource = this.andmebaasDataSetBindingSource;
             // 
             // otsipilt_btn
             // 
@@ -221,7 +203,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.otsipilt_btn);
             this.Controls.Add(this.Uuenda_btn);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.kustuta_btn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.Hind_txt);
@@ -235,7 +217,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.andmebaasDataSetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.andmebaasDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -256,11 +237,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource andmebaasDataSetBindingSource;
-        private AndmebaasDataSet andmebaasDataSet;
         private System.Windows.Forms.BindingSource toodeBindingSource;
-        private AndmebaasDataSetTableAdapters.ToodeTableAdapter toodeTableAdapter;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button kustuta_btn;
         private System.Windows.Forms.Button Uuenda_btn;
         private System.Windows.Forms.BindingSource toodeBindingSource1;
         private System.Windows.Forms.BindingSource toodeBindingSource2;

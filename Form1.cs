@@ -15,35 +15,44 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
 {
     public partial class Form1 : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\source\repos\Andmebaas_Vsevolod_Tsarev_TARpv23\Andemebaas.mdf;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\source\repos\Andmebaas_Vsevolod_Tsarev_TARpv23\Andmed.mdf;Integrated Security=True");
         SqlCommand cmd;
         SqlDataAdapter adapter;
         public Form1()
         {
             InitializeComponent();
             NaitaAndmed();
-            
+
         }
 
         public void NaitaAndmed()
         {
             conn.Open();
             DataTable dt = new DataTable();
-            cmd = new SqlCommand("SELECT * FROM Toode",conn);
+            cmd = new SqlCommand("SELECT * FROM Toode", conn);
             adapter = new SqlDataAdapter(cmd);
             adapter.Fill(dt);
             dataGridView1.DataSource = dt;
             conn.Close();
         }
 
-        
+
         int ID = 0;
         private void dataGridView1_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             ID = (int)dataGridView1.Rows[e.RowIndex].Cells["Id"].Value;
-            Nimetus_txt.Text= dataGridView1.Rows[e.RowIndex].Cells["Nimetus"].Value.ToString();
+            Nimetus_txt.Text = dataGridView1.Rows[e.RowIndex].Cells["Nimetus"].Value.ToString();
             Kogus_txt.Text = dataGridView1.Rows[e.RowIndex].Cells["Kogus"].Value.ToString();
             Hind_txt.Text = dataGridView1.Rows[e.RowIndex].Cells["Hind"].Value.ToString();
+            try
+            {
+                pictureBox1.Image = Image.FromFile(Path.Combine(Path.GetFullPath(@"..\..\Pildid"), dataGridView1.Rows[e.RowIndex].Cells["Pilt"].Value.ToString()));
+            }
+            catch (Exception)
+            {
+                pictureBox1.Image = Image.FromFile(Path.Combine(Path.GetFullPath(@"..\..\Pildid"), "pilt.png"));
+                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            }
         }
 
         private void Lisa_btn_Click(object sender, EventArgs e)
@@ -59,9 +68,10 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
                     cmd.Parameters.AddWithValue("@hind", Hind_txt.Text);
                     cmd.Parameters.AddWithValue("@pilt", Nimetus_txt.Text + extension);
                     cmd.ExecuteNonQuery();
-                    
+
 
                     conn.Close();
+                    Eemaldamine();
                     NaitaAndmed();
                 }
                 catch (Exception)
@@ -82,16 +92,17 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
                 try
                 {
                     conn.Open();
-                    cmd = new SqlCommand("UPDATE Toode SET Nimetus = @toode,Kogus=@kogus, Hind=@hind WHERE Id=@id" ,conn);
+                    cmd = new SqlCommand("UPDATE Toode SET Nimetus = @toode,Kogus=@kogus, Hind=@hind WHERE Id=@id", conn);
                     cmd.Parameters.AddWithValue("@ToodeId", ID);
                     cmd.Parameters.AddWithValue("@toode", Nimetus_txt.Text);
                     cmd.Parameters.AddWithValue("@kogus", Kogus_txt.Text);
                     cmd.Parameters.AddWithValue("@hind", Hind_txt.Text);
+                    cmd.Parameters.AddWithValue("@pilt", Nimetus_txt.Text + extension);
                     cmd.ExecuteNonQuery();
 
                     conn.Close();
                     NaitaAndmed();
-                    MessageBox.Show("Uuendamine", "Andmed edukalt uuendatud");
+                    Eemaldamine();
                 }
                 catch (Exception)
                 {
@@ -102,6 +113,15 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
             {
                 MessageBox.Show("Sisesta andmeid!");
             }
+        }
+
+        private void Eemaldamine()
+        {
+            MessageBox.Show("Andmed edukalt uuendatud", "Uuendamine");
+            Nimetus_txt.Text = "";
+            Kogus_txt.Text = "";
+            Hind_txt.Text = "";
+            pictureBox1.Image = Image.FromFile(Path.Combine(Path.GetFullPath(@"..\..\Pildid"), "pilt.png"));
         }
         OpenFileDialog open;
         SaveFileDialog save;
@@ -133,5 +153,30 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
                 }
             }
         }
+
+        private void kustuta_btn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+                if (ID != 0) ;
+                {
+                    conn.Open();
+                    cmd = new SqlCommand("DELETE FROM Toode WHERE Id=@id");
+                    cmd.Parameters.AddWithValue("@id", ID);
+                    cmd.ExecuteNonQuery();
+
+                    conn.Close();
+                    Eemaldamine();
+                    NaitaAndmed();
+                }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Viga!");
+            }
+        }
     }
+
 }
