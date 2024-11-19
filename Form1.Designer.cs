@@ -216,7 +216,6 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.andmebaasDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

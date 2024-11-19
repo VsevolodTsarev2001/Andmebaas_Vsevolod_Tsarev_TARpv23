@@ -46,7 +46,7 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
             Hind_txt.Text = dataGridView1.Rows[e.RowIndex].Cells["Hind"].Value.ToString();
             try
             {
-                pictureBox1.Image = Image.FromFile(Path.Combine(Path.GetFullPath(@"..\..\Pildid"), dataGridView1.Rows[e.RowIndex].Cells["Pilt"].Value.ToString()));
+                pictureBox1.Image = Image.FromFile(Path.Combine(Path.GetFullPath(@"..\..\Pildid"), dataGridView1.Rows[e.RowIndex].Cells["pilt"].Value.ToString()));
             }
             catch (Exception)
             {
@@ -62,7 +62,7 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
                 try
                 {
                     conn.Open();
-                    cmd = new SqlCommand("INSERT INTO Toode(Nimetus,Kogus,Hind,Pilt) VALUES (@toode,@kogus,@hind,@pilt)", conn);
+                    cmd = new SqlCommand("INSERT INTO Toode(Nimetus,Kogus,Hind,pilt) VALUES (@toode,@kogus,@hind,@pilt)", conn);
                     cmd.Parameters.AddWithValue("@toode", Nimetus_txt.Text);
                     cmd.Parameters.AddWithValue("@kogus", Kogus_txt.Text);
                     cmd.Parameters.AddWithValue("@hind", Hind_txt.Text);
@@ -71,42 +71,11 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
 
 
                     conn.Close();
-                    Eemaldamine();
                     NaitaAndmed();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Andmebaasiga viga!");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Sisesta andmeid!");
-            }
-        }
-
-        private void Uuenda_btn_Click(object sender, EventArgs e)
-        {
-            if (Nimetus_txt.Text.Trim() != string.Empty && Kogus_txt.Text.Trim() != string.Empty && Hind_txt.Text.Trim() != string.Empty)
-            {
-                try
-                {
-                    conn.Open();
-                    cmd = new SqlCommand("UPDATE Toode SET Nimetus = @toode,Kogus=@kogus, Hind=@hind WHERE Id=@id", conn);
-                    cmd.Parameters.AddWithValue("@ToodeId", ID);
-                    cmd.Parameters.AddWithValue("@toode", Nimetus_txt.Text);
-                    cmd.Parameters.AddWithValue("@kogus", Kogus_txt.Text);
-                    cmd.Parameters.AddWithValue("@hind", Hind_txt.Text);
-                    cmd.Parameters.AddWithValue("@pilt", Nimetus_txt.Text + extension);
-                    cmd.ExecuteNonQuery();
-
-                    conn.Close();
-                    NaitaAndmed();
-                    Eemaldamine();
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Andmebaasiga viga!");
+                    MessageBox.Show("Andmebaasiga viga!" + ex.Message);
                 }
             }
             else
@@ -136,7 +105,7 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
             if (open.ShowDialog() == DialogResult.OK && Nimetus_txt.Text != null)
             {
                 save = new SaveFileDialog();
-                save.InitialDirectory = Path.GetFullPath(@"..\..\..\Pildid");
+                save.InitialDirectory = Path.GetFullPath(@"..\..\Pildid");
                 extension = Path.GetExtension(open.FileName);
 
                 save.FileName = Nimetus_txt.Text + extension;
@@ -153,7 +122,7 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
                 }
             }
         }
-
+        
         private void kustuta_btn_Click(object sender, EventArgs e)
         {
             try
@@ -165,8 +134,12 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
                     cmd = new SqlCommand("DELETE FROM Toode WHERE Id=@id");
                     cmd.Parameters.AddWithValue("@id", ID);
                     cmd.ExecuteNonQuery();
-
                     conn.Close();
+                    string file = Nimetus_txt.Text;
+
+
+                    System.Threading.Thread.Sleep(500);
+                    Kustuta_fail(file);
                     Eemaldamine();
                     NaitaAndmed();
                 }
@@ -175,6 +148,58 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
             {
 
                 MessageBox.Show("Viga!");
+            }
+        }
+        
+        private void Kustuta_fail(string file)
+        {
+            try
+            {
+                string filePath = Path.Combine(Path.GetFullPath(@"..\..\Pildid"), file + extension);
+                MessageBox.Show($"Püüan kustutada faili: {filePath}");
+                if (File.Exists(filePath)) 
+                {
+                    File.Delete(filePath);
+                    MessageBox.Show("Fail on kustutatud");
+                }
+                else
+                {
+                    MessageBox.Show("Fail ei leitud");
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failida probleemid");
+            }
+        }
+
+        private void Uuenda_btn_Click(object sender, EventArgs e)
+        {
+            if (Nimetus_txt.Text.Trim() != string.Empty && Kogus_txt.Text.Trim() != string.Empty && Hind_txt.Text.Trim() != string.Empty)
+            {
+                try
+                {
+                    conn.Open();
+                    cmd = new SqlCommand("UPDATE Toode SET Nimetus = @toode,Kogus=@kogus, Hind=@hind, pilt=@pilt WHERE Id=@id", conn);
+                    cmd.Parameters.AddWithValue("@id", ID);
+                    cmd.Parameters.AddWithValue("@toode", Nimetus_txt.Text);
+                    cmd.Parameters.AddWithValue("@kogus", Kogus_txt.Text);
+                    cmd.Parameters.AddWithValue("@hind", Hind_txt.Text);
+                    cmd.Parameters.AddWithValue("@pilt", Nimetus_txt.Text + extension);
+                    cmd.ExecuteNonQuery();
+
+                    conn.Close();
+                    NaitaAndmed();
+                    Eemaldamine();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Andmebaasiga viga!" + ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Sisesta andmeid!");
             }
         }
     }
