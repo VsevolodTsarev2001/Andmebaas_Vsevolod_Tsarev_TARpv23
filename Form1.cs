@@ -18,11 +18,25 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
         SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\source\repos\Andmebaas_Vsevolod_Tsarev_TARpv23\Andmed.mdf;Integrated Security=True");
         SqlCommand cmd;
         SqlDataAdapter adapter;
+        DataTable laotable;
         public Form1()
         {
             InitializeComponent();
             NaitaAndmed();
+            NaitaLaod();
+        }
 
+        private void NaitaLaod()
+        {
+            conn.Open();
+            cmd = new SqlCommand("SELECT Id, LaoNimetus FROM Ladu", conn);
+            adapter = new SqlDataAdapter(cmd);
+            DataTable = new DataTable();
+            adapter.Fill(laotable);
+            foreach (DataRow item in laotable.Rows)
+            {
+                ladu_cb.Items.Add(item.ToString());
+            }
         }
 
         public void NaitaAndmed()
@@ -46,7 +60,12 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
             Hind_txt.Text = dataGridView1.Rows[e.RowIndex].Cells["Hind"].Value.ToString();
             try
             {
-                pictureBox1.Image = Image.FromFile(Path.Combine(Path.GetFullPath(@"..\..\Pildid"), dataGridView1.Rows[e.RowIndex].Cells["pilt"].Value.ToString()));
+                using (FileStream fs = new FileStream(Path.Combine(Path.GetFullPath(@"..\..\Pildid"), dataGridView1.Rows[e.RowIndex].Cells["Pilt"].Value.ToString()),FileMode.Open,FileAccess.Read))
+                {
+                    pictureBox1.Image = Image.FromStream(fs);
+                }
+                //pictureBox1.Image = Image.FromFile(Path.Combine(Path.GetFullPath(@"..\..\Pildid"), dataGridView1.Rows[e.RowIndex].Cells["pilt"].Value.ToString()));
+                pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
             }
             catch (Exception)
             {
@@ -62,11 +81,20 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
                 try
                 {
                     conn.Open();
+
+                    cmd = new SqlCommand("SELECT ID FROM LADU WHERE LaoNimetus=@ladu", conn);
+                    cmd.Parameters.AddWithValue("@ladu", ladu_cb.Text);
+                    ID = Convert.ToInt32(cmd.ExecuteScalar());
+
+
                     cmd = new SqlCommand("INSERT INTO Toode(Nimetus,Kogus,Hind,pilt) VALUES (@toode,@kogus,@hind,@pilt)", conn);
                     cmd.Parameters.AddWithValue("@toode", Nimetus_txt.Text);
                     cmd.Parameters.AddWithValue("@kogus", Kogus_txt.Text);
                     cmd.Parameters.AddWithValue("@hind", Hind_txt.Text);
                     cmd.Parameters.AddWithValue("@pilt", Nimetus_txt.Text + extension);
+
+                    imageData = File.ReadAllBytes(open.FileName);
+                    cmd.Parameters.AddWithValue(@"fpilt", imageData);
                     cmd.ExecuteNonQuery();
 
 
@@ -128,7 +156,7 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
             try
             {
                 ID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
-                if (ID != 0) ;
+                if (ID != 0);
                 {
                     conn.Open();
                     cmd = new SqlCommand("DELETE FROM Toode WHERE Id=@id");
@@ -155,21 +183,21 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
         {
             try
             {
-                string filePath = Path.Combine(Path.GetFullPath(@"..\..\Pildid"), file + extension);
+                string filePath = Path.Combine(Path.GetFullPath(@"..\..\Pildid"), file);
                 MessageBox.Show($"Püüan kustutada faili: {filePath}");
                 if (File.Exists(filePath)) 
                 {
                     File.Delete(filePath);
-                    MessageBox.Show("Fail on kustutatud");
+                    MessageBox.Show($"Fail{filePath} on kustutatud");
                 }
                 else
                 {
                     MessageBox.Show("Fail ei leitud");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Failida probleemid");
+                MessageBox.Show($"Failida probleemid {ex.Message}");
             }
         }
 
@@ -202,6 +230,26 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
                 MessageBox.Show("Sisesta andmeid!");
             }
         }
-    }
+        Form popupForm;
+        private void Loopilt(Image image,int r)
+        {
+            popupForm = new Form();
+            popupForm.FormBorderStyle = FormBorderStyle.None;
+            popupForm.StartPosition = FormStartPosition.Manual;
+            popupForm.Size = image.Size;
 
+            PictureBox pictureBox = new PictureBox();
+            pictureBox.Image = image;
+            pictureBox.Dock = DockStyle.Fill;
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+
+            popupForm.Controls.Add(pictureBox);
+
+            Rectangle cellRectangle = dataGridView1.GetCellDisplayRectangle(4, r, true);
+            Point popupLocation = dataGridView1.PointToScreen(cellRectangle.Location);
+
+            popupForm.Location = new Point(popupLocation.X + cellRectangle.Width, popupLocation.Y);
+            popupForm.Show();
+        }
+    }
 }

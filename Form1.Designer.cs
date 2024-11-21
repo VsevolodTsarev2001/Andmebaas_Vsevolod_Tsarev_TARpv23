@@ -47,6 +47,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toodeBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
             this.toodeBindingSource4 = new System.Windows.Forms.BindingSource(this.components);
+            this.label4 = new System.Windows.Forms.Label();
+            this.ladu_cb = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.andmebaasDataSetBindingSource)).BeginInit();
@@ -61,7 +63,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label1.Location = new System.Drawing.Point(21, 38);
+            this.label1.Location = new System.Drawing.Point(21, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 26);
             this.label1.TabIndex = 0;
@@ -70,7 +72,7 @@
             // Nimetus_txt
             // 
             this.Nimetus_txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.Nimetus_txt.Location = new System.Drawing.Point(120, 38);
+            this.Nimetus_txt.Location = new System.Drawing.Point(120, 9);
             this.Nimetus_txt.Name = "Nimetus_txt";
             this.Nimetus_txt.Size = new System.Drawing.Size(100, 32);
             this.Nimetus_txt.TabIndex = 1;
@@ -78,7 +80,7 @@
             // Kogus_txt
             // 
             this.Kogus_txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.Kogus_txt.Location = new System.Drawing.Point(120, 91);
+            this.Kogus_txt.Location = new System.Drawing.Point(120, 62);
             this.Kogus_txt.Name = "Kogus_txt";
             this.Kogus_txt.Size = new System.Drawing.Size(100, 32);
             this.Kogus_txt.TabIndex = 3;
@@ -87,7 +89,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label2.Location = new System.Drawing.Point(40, 91);
+            this.label2.Location = new System.Drawing.Point(40, 62);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(74, 26);
             this.label2.TabIndex = 2;
@@ -96,7 +98,7 @@
             // Hind_txt
             // 
             this.Hind_txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.Hind_txt.Location = new System.Drawing.Point(120, 139);
+            this.Hind_txt.Location = new System.Drawing.Point(120, 110);
             this.Hind_txt.Name = "Hind_txt";
             this.Hind_txt.Size = new System.Drawing.Size(100, 32);
             this.Hind_txt.TabIndex = 5;
@@ -105,7 +107,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label3.Location = new System.Drawing.Point(57, 142);
+            this.label3.Location = new System.Drawing.Point(57, 113);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 26);
             this.label3.TabIndex = 4;
@@ -195,11 +197,31 @@
             this.toodeBindingSource4.DataMember = "Toode";
             this.toodeBindingSource4.DataSource = this.andmebaasDataSetBindingSource;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.label4.Location = new System.Drawing.Point(57, 154);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 26);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Ladu";
+            // 
+            // ladu_cb
+            // 
+            this.ladu_cb.FormattingEnabled = true;
+            this.ladu_cb.Location = new System.Drawing.Point(120, 159);
+            this.ladu_cb.Name = "ladu_cb";
+            this.ladu_cb.Size = new System.Drawing.Size(100, 21);
+            this.ladu_cb.TabIndex = 13;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ladu_cb);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.otsipilt_btn);
             this.Controls.Add(this.Uuenda_btn);
@@ -216,6 +238,7 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.andmebaasDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -246,6 +269,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.BindingSource toodeBindingSource3;
         private System.Windows.Forms.BindingSource toodeBindingSource4;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox ladu_cb;
     }
 }
 
