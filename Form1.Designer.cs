@@ -120,6 +120,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(776, 179);
             this.dataGridView1.TabIndex = 6;
+            this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
             this.dataGridView1.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_RowHeaderMouseClick);
             // 
             // toodeBindingSource2
@@ -162,7 +163,6 @@
             this.Uuenda_btn.TabIndex = 9;
             this.Uuenda_btn.Text = "Uuenda andmed";
             this.Uuenda_btn.UseVisualStyleBackColor = true;
-            this.Uuenda_btn.Click += new System.EventHandler(this.Uuenda_btn_Click);
             // 
             // toodeBindingSource1
             // 
@@ -238,6 +238,7 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource3)).EndInit();
