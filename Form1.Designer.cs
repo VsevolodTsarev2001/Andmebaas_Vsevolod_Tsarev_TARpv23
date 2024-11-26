@@ -63,7 +63,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label1.Location = new System.Drawing.Point(21, 9);
+            this.label1.Location = new System.Drawing.Point(12, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 26);
             this.label1.TabIndex = 0;
@@ -89,7 +89,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label2.Location = new System.Drawing.Point(40, 62);
+            this.label2.Location = new System.Drawing.Point(12, 62);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(74, 26);
             this.label2.TabIndex = 2;
@@ -107,7 +107,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label3.Location = new System.Drawing.Point(57, 113);
+            this.label3.Location = new System.Drawing.Point(12, 110);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 26);
             this.label3.TabIndex = 4;
@@ -116,9 +116,9 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(26, 245);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 259);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(531, 156);
+            this.dataGridView1.Size = new System.Drawing.Size(776, 179);
             this.dataGridView1.TabIndex = 6;
             this.dataGridView1.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_RowHeaderMouseClick);
             // 
@@ -134,7 +134,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.button1.Location = new System.Drawing.Point(26, 192);
+            this.button1.Location = new System.Drawing.Point(17, 206);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(145, 47);
             this.button1.TabIndex = 7;
@@ -145,7 +145,7 @@
             // kustuta_btn
             // 
             this.kustuta_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.kustuta_btn.Location = new System.Drawing.Point(177, 192);
+            this.kustuta_btn.Location = new System.Drawing.Point(168, 206);
             this.kustuta_btn.Name = "kustuta_btn";
             this.kustuta_btn.Size = new System.Drawing.Size(179, 47);
             this.kustuta_btn.TabIndex = 8;
@@ -156,7 +156,7 @@
             // Uuenda_btn
             // 
             this.Uuenda_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.Uuenda_btn.Location = new System.Drawing.Point(362, 192);
+            this.Uuenda_btn.Location = new System.Drawing.Point(353, 206);
             this.Uuenda_btn.Name = "Uuenda_btn";
             this.Uuenda_btn.Size = new System.Drawing.Size(195, 47);
             this.Uuenda_btn.TabIndex = 9;
@@ -171,7 +171,7 @@
             // otsipilt_btn
             // 
             this.otsipilt_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.otsipilt_btn.Location = new System.Drawing.Point(563, 192);
+            this.otsipilt_btn.Location = new System.Drawing.Point(554, 206);
             this.otsipilt_btn.Name = "otsipilt_btn";
             this.otsipilt_btn.Size = new System.Drawing.Size(148, 47);
             this.otsipilt_btn.TabIndex = 10;
@@ -181,9 +181,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(585, 19);
+            this.pictureBox1.Location = new System.Drawing.Point(622, 9);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(126, 111);
+            this.pictureBox1.Size = new System.Drawing.Size(166, 167);
             this.pictureBox1.TabIndex = 11;
             this.pictureBox1.TabStop = false;
             // 
@@ -201,7 +201,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label4.Location = new System.Drawing.Point(57, 154);
+            this.label4.Location = new System.Drawing.Point(12, 153);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 26);
             this.label4.TabIndex = 12;
@@ -238,8 +238,6 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.andmebaasDataSetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toodeBindingSource3)).EndInit();

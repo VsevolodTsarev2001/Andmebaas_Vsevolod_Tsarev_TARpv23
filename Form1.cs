@@ -19,6 +19,7 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
         SqlCommand cmd;
         SqlDataAdapter adapter;
         DataTable laotable;
+
         public Form1()
         {
             InitializeComponent();
@@ -26,19 +27,22 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
             NaitaLaod();
         }
 
+        // Parandatud meetod andmete kuvamiseks kombole
         private void NaitaLaod()
         {
             conn.Open();
             cmd = new SqlCommand("SELECT Id, LaoNimetus FROM Ladu", conn);
             adapter = new SqlDataAdapter(cmd);
-            DataTable = new DataTable();
+            laotable = new DataTable();
             adapter.Fill(laotable);
             foreach (DataRow item in laotable.Rows)
             {
-                ladu_cb.Items.Add(item.ToString());
+                ladu_cb.Items.Add(item["LaoNimetus"].ToString()); // Kasutame konkreetset välja, mitte terve rida DataRow
             }
+            conn.Close();
         }
 
+        // Meetod toodete andmete kuvamiseks
         public void NaitaAndmed()
         {
             conn.Open();
@@ -50,8 +54,9 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
             conn.Close();
         }
 
-
         int ID = 0;
+
+        // Meetod, mis käsitleb andmete valimist DataGridViewst
         private void dataGridView1_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             ID = (int)dataGridView1.Rows[e.RowIndex].Cells["Id"].Value;
@@ -60,11 +65,11 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
             Hind_txt.Text = dataGridView1.Rows[e.RowIndex].Cells["Hind"].Value.ToString();
             try
             {
-                using (FileStream fs = new FileStream(Path.Combine(Path.GetFullPath(@"..\..\Pildid"), dataGridView1.Rows[e.RowIndex].Cells["Pilt"].Value.ToString()),FileMode.Open,FileAccess.Read))
+                string imagePath = Path.Combine(Path.GetFullPath(@"..\..\Pildid"), dataGridView1.Rows[e.RowIndex].Cells["pilt"].Value.ToString());
+                using (FileStream fs = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
                 {
                     pictureBox1.Image = Image.FromStream(fs);
                 }
-                //pictureBox1.Image = Image.FromFile(Path.Combine(Path.GetFullPath(@"..\..\Pildid"), dataGridView1.Rows[e.RowIndex].Cells["pilt"].Value.ToString()));
                 pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
             }
             catch (Exception)
@@ -74,6 +79,7 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
             }
         }
 
+        // Meetod toote lisamiseks andmebaasi
         private void Lisa_btn_Click(object sender, EventArgs e)
         {
             if (Nimetus_txt.Text.Trim() != string.Empty && Kogus_txt.Text.Trim() != string.Empty && Hind_txt.Text.Trim() != string.Empty)
@@ -82,91 +88,96 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
                 {
                     conn.Open();
 
-                    cmd = new SqlCommand("SELECT ID FROM LADU WHERE LaoNimetus=@ladu", conn);
+                    // Saame valitud lao Id
+                    cmd = new SqlCommand("SELECT Id FROM Ladu WHERE LaoNimetus=@ladu", conn);
                     cmd.Parameters.AddWithValue("@ladu", ladu_cb.Text);
-                    ID = Convert.ToInt32(cmd.ExecuteScalar());
+                    int laduId = Convert.ToInt32(cmd.ExecuteScalar());
 
-
-                    cmd = new SqlCommand("INSERT INTO Toode(Nimetus,Kogus,Hind,pilt) VALUES (@toode,@kogus,@hind,@pilt)", conn);
+                    // Lisame uue toote andmebaasi
+                    cmd = new SqlCommand("INSERT INTO Toode(Nimetus, Kogus, Hind, pilt, LaduId) VALUES (@toode, @kogus, @hind, @pilt, @laduId)", conn);
                     cmd.Parameters.AddWithValue("@toode", Nimetus_txt.Text);
                     cmd.Parameters.AddWithValue("@kogus", Kogus_txt.Text);
                     cmd.Parameters.AddWithValue("@hind", Hind_txt.Text);
-                    cmd.Parameters.AddWithValue("@pilt", Nimetus_txt.Text + extension);
 
-                    imageData = File.ReadAllBytes(open.FileName);
-                    cmd.Parameters.AddWithValue(@"fpilt", imageData);
+                    // Saame pildi laienduse
+                    string imagePath = Path.Combine(Path.GetFullPath(@"..\..\Pildid"), Nimetus_txt.Text + Path.GetExtension(open.FileName));
+                    cmd.Parameters.AddWithValue("@pilt", Nimetus_txt.Text + Path.GetExtension(open.FileName));
+                    cmd.Parameters.AddWithValue("@laduId", laduId);
+
+                    // Salvestame pildi
+                    byte[] imageData = File.ReadAllBytes(open.FileName);
+                    cmd.Parameters.AddWithValue("@fpilt", imageData);
+
                     cmd.ExecuteNonQuery();
-
-
                     conn.Close();
                     NaitaAndmed();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Andmebaasiga viga!" + ex.Message);
+                    MessageBox.Show("Viga andmebaasi töötlemisel! " + ex.Message);
                 }
             }
             else
             {
-                MessageBox.Show("Sisesta andmeid!");
+                MessageBox.Show("Palun täida kõik andmed!");
             }
         }
 
         private void Eemaldamine()
         {
-            MessageBox.Show("Andmed edukalt uuendatud", "Uuendamine");
+            MessageBox.Show("Andmed on edukalt uuendatud", "Uuendamine");
             Nimetus_txt.Text = "";
             Kogus_txt.Text = "";
             Hind_txt.Text = "";
             pictureBox1.Image = Image.FromFile(Path.Combine(Path.GetFullPath(@"..\..\Pildid"), "pilt.png"));
         }
+
         OpenFileDialog open;
         SaveFileDialog save;
-        string extension;
+
+        // Meetod pildi valimiseks
         private void otsipilt_btn_Click(object sender, EventArgs e)
         {
             open = new OpenFileDialog();
             open.InitialDirectory = @"C:\Users\opilane\Pictures\";
             open.Multiselect = false;
-            open.Filter = "Images Files(*.jpeg; *.png; *.bmp; *.jpg)|*.jpeg; *.png; *.bmp; *.jpg";
-            FileInfo openfile = new FileInfo(@"C:\Users\opilane\Pictures\" + open.FileName);
-            if (open.ShowDialog() == DialogResult.OK && Nimetus_txt.Text != null)
+            open.Filter = "Pildi failid (*.jpeg; *.png; *.bmp; *.jpg)|*.jpeg; *.png; *.bmp; *.jpg";
+
+            if (open.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(Nimetus_txt.Text))
             {
                 save = new SaveFileDialog();
                 save.InitialDirectory = Path.GetFullPath(@"..\..\Pildid");
-                extension = Path.GetExtension(open.FileName);
+                save.FileName = Nimetus_txt.Text + Path.GetExtension(open.FileName);
+                save.Filter = "Pildid |" + Path.GetExtension(open.FileName);
 
-                save.FileName = Nimetus_txt.Text + extension;
-                save.Filter = "Images" + Path.GetExtension(open.FileName) + "|" + Path.GetExtension(open.FileName);
-                if (save.ShowDialog()==DialogResult.OK && Nimetus_txt != null)
+                if (save.ShowDialog() == DialogResult.OK)
                 {
                     File.Copy(open.FileName, save.FileName);
                     pictureBox1.Image = Image.FromFile(save.FileName);
-
-                }
-                else
-                {
-                    MessageBox.Show("Puudub toode nimetus või ole Cancel vajutatud");
                 }
             }
+            else
+            {
+                MessageBox.Show("Sisesta toote nimi või vajuta 'Tühista'");
+            }
         }
-        
+
+        // Meetod toote kustutamiseks
         private void kustuta_btn_Click(object sender, EventArgs e)
         {
             try
             {
                 ID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
-                if (ID != 0);
+                if (ID != 0)
                 {
                     conn.Open();
-                    cmd = new SqlCommand("DELETE FROM Toode WHERE Id=@id");
+                    cmd = new SqlCommand("DELETE FROM Toode WHERE Id=@id", conn);
                     cmd.Parameters.AddWithValue("@id", ID);
                     cmd.ExecuteNonQuery();
                     conn.Close();
+
+                    // Kustutame pildi alles pärast andmete kustutamist andmebaasist
                     string file = Nimetus_txt.Text;
-
-
-                    System.Threading.Thread.Sleep(500);
                     Kustuta_fail(file);
                     Eemaldamine();
                     NaitaAndmed();
@@ -174,33 +185,32 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
             }
             catch (Exception)
             {
-
-                MessageBox.Show("Viga!");
+                MessageBox.Show("Viga kustutamisel!");
             }
         }
-        
+
         private void Kustuta_fail(string file)
         {
             try
             {
                 string filePath = Path.Combine(Path.GetFullPath(@"..\..\Pildid"), file);
-                MessageBox.Show($"Püüan kustutada faili: {filePath}");
-                if (File.Exists(filePath)) 
+                if (File.Exists(filePath))
                 {
                     File.Delete(filePath);
-                    MessageBox.Show($"Fail{filePath} on kustutatud");
+                    MessageBox.Show($"Fail {filePath} on edukalt kustutatud.");
                 }
                 else
                 {
-                    MessageBox.Show("Fail ei leitud");
+                    MessageBox.Show("Faili ei leitud.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failida probleemid {ex.Message}");
+                MessageBox.Show($"Viga faili kustutamisel: {ex.Message}");
             }
         }
 
+        // Meetod toote uuendamiseks
         private void Uuenda_btn_Click(object sender, EventArgs e)
         {
             if (Nimetus_txt.Text.Trim() != string.Empty && Kogus_txt.Text.Trim() != string.Empty && Hind_txt.Text.Trim() != string.Empty)
@@ -208,12 +218,12 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
                 try
                 {
                     conn.Open();
-                    cmd = new SqlCommand("UPDATE Toode SET Nimetus = @toode,Kogus=@kogus, Hind=@hind, pilt=@pilt WHERE Id=@id", conn);
+                    cmd = new SqlCommand("UPDATE Toode SET Nimetus = @toode, Kogus = @kogus, Hind = @hind, pilt = @pilt WHERE Id = @id", conn);
                     cmd.Parameters.AddWithValue("@id", ID);
                     cmd.Parameters.AddWithValue("@toode", Nimetus_txt.Text);
                     cmd.Parameters.AddWithValue("@kogus", Kogus_txt.Text);
                     cmd.Parameters.AddWithValue("@hind", Hind_txt.Text);
-                    cmd.Parameters.AddWithValue("@pilt", Nimetus_txt.Text + extension);
+                    cmd.Parameters.AddWithValue("@pilt", Nimetus_txt.Text );
                     cmd.ExecuteNonQuery();
 
                     conn.Close();
@@ -222,16 +232,19 @@ namespace Andmebaas_Vsevolod_Tsarev_TARpv23
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Andmebaasiga viga!" + ex.Message);
+                    MessageBox.Show("Viga andmebaasi töötlemisel! " + ex.Message);
                 }
             }
             else
             {
-                MessageBox.Show("Sisesta andmeid!");
+                MessageBox.Show("Palun täida kõik andmed!");
             }
         }
+
         Form popupForm;
-        private void Loopilt(Image image,int r)
+
+        // Meetod pildi kuvamiseks eraldi aknas
+        private void Loopilt(Image image, int r)
         {
             popupForm = new Form();
             popupForm.FormBorderStyle = FormBorderStyle.None;
